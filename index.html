@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Socket.IO Test</title>
+    <link rel="stylesheet" href="./assets/css/dist/onsenui.css">
+    <link rel="stylesheet" href="./assets/css/dist/onsen-css-components.min.css">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="./assets/css/live.css">
+    <script src="./assets/js/dist/onsenui.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <div class="body">
+  		<ons-navigator id="myNavigator" page="index.html"></ons-navigator>
+
+  		<template id="index.html">
+  			<ons-page id="page1">
+  				<ons-tabbar id="bottom-tabbar" position="bottom" animation="none">
+  					<ons-tab page="slide.html" label="デモ画面" icon="fa-plane"></ons-tab>
+  					<ons-tab page="top.html" label="トップ画面" icon="fa-plane"></ons-tab>
+  				</ons-tabbar>
+  			</ons-page>
+  		</template>
+
+  		<template id="top.html">
+  			<ons-page id="top" class="scroll-outer">
+  				<div class="scroll-inner">
+  					<div class="flex-all">
+  						<div class="main">
+  							<img src="./assets/img/demo.png" alt="DEMO" />
+  						</div>
+  						<div class="copy">powerd by Bigbeat</div>
+  					</div>
+  				</div>
+  			</ons-page>
+  		</template>
+
+  		<template id="slide.html">
+  			<ons-page id="slide" class="scroll-outer">
+  				<ons-toolbar id="header">
+  					<div class="center title">DEMO</div>
+  				</ons-toolbar>
+  				<div class="scroll-all">
+  					<ul id="messages"></ul>
+  					<div class="splash-wrap">
+  						<div class="splash"></div>
+  						<img src="./assets/img/demo.png" alt="DEMO" />
+  					</div>
+  				</div>
+  				<ons-bottom-toolbar id="bottom-bar">
+  					<nav class="menu">
+  						<input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+  						<label class="menu-open-button" for="menu-open">
+  							<span class="lines line-1"></span>
+  							<span class="lines line-2"></span>
+  							<span class="lines line-3"></span>
+  						</label>
+
+  						<div id="fire" class="menu-item blue"><i class="fa fa-fire"></i></div>
+  						<div id="heart" class="menu-item red"><i class="fa fa-heart"></i></div>
+  						<div id="confetti" class="menu-item purple"><i class="fa fa-thumbs-up"></i></div>
+  						<div id="stamp" class="menu-item orange"><i class="fa fa-stamp"></i></div>
+  						<div id="question" class="menu-item lightblue"><i class="fa fa-question"></i></div>
+  					</nav>
+  					<form id="memo">
+  						<div class="chat__conversation-panel">
+  							<div class="chat__conversation-panel__container">
+  								<button class="chat__conversation-panel__button panel-item btn-icon add-file-button" onclick="return false;">
+  									<svg class="feather feather-plus sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  										<line x1="12" y1="5" x2="12" y2="19"></line>
+  										<line x1="5" y1="12" x2="19" y2="12"></line>
+  									</svg>
+  								</button>
+  								<button class="chat__conversation-panel__button panel-item btn-icon emoji-button" onclick="return false;">
+  									<svg class="feather feather-smile sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  										<circle cx="12" cy="12" r="10"></circle>
+  										<path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+  										<line x1="9" y1="9" x2="9.01" y2="9"></line>
+  										<line x1="15" y1="9" x2="15.01" y2="9"></line>
+  									</svg>
+  								</button>
+  								<input id="m" class="chat__conversation-panel__input panel-item" autocomplete="off" placeholder="Type a message..."/>
+  								<button id="send" class="chat__conversation-panel__button panel-item btn-icon send-message-button">
+  									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-reactid="1036">
+  										<line x1="22" y1="2" x2="11" y2="13"></line>
+  										<polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+  									</svg>
+  								</button>
+  							</div>
+  						</div>
+  					</form>
+  				</ons-bottom-toolbar>
+          <script>
+            var send = document.getElementById('send');
+            socket = io.connect();
+            send.addEventListener('click', function (e) {
+              e.preventDefault();
+              var m = document.getElementById('m');
+              if (m.value === '') {
+                return false;
+              } else {
+                socket.emit('message', m.value);
+                m.value = '';
+              }
+            });
+            socket.on('message', function (msg) {
+              if (typeof (msg) == "string" || msg instanceof String) {
+                var messages = document.getElementById('messages');
+                var who = rnd(1,2),
+                  you;
+                if (who === 1) {
+                  you = 'men';
+                } else {
+                  you = 'women';
+                }
+                messages.innerHTML += '<li><div class="line__left"><figure><img src="//randomuser.me/api/portraits/' + you + '/' + rnd(1,99) + '.jpg" /></figure><div class="line__left-text"><div class="name">ユーザー</div><div class="text">' + msg + '</div></div></div></li>';
+              }
+            });
+
+            // heart
+            var heart = document.getElementById('heart');
+            heart.addEventListener('click', function (e) {
+              var flag = 1;
+              socket.emit('message', flag);
+            });
+
+            // confetti
+            var confetti = document.getElementById('confetti');
+            confetti.addEventListener('click', function (e) {
+              var flag = 2;
+              socket.emit('message', flag);
+            });
+
+            // stamp
+            var stamp = document.getElementById('stamp');
+            stamp.addEventListener('click', function (e) {
+              var flag = 3;
+              socket.emit('message', flag);
+            });
+
+            // fire
+            var fire = document.getElementById('fire');
+            fire.addEventListener('click', function (e) {
+              var flag = 4;
+              socket.emit('message', flag);
+            });
+
+            // question
+            var question = document.getElementById('question');
+            question.addEventListener('click', function (e) {
+              var flag = 5;
+              socket.emit('message', flag);
+            });
+
+            var rnd = function(m,n) {
+              m = parseInt(m);
+              n = parseInt(n);
+              return Math.floor( Math.random() * (n - m + 1) ) + m;
+            }
+
+            var	menu = document.getElementById('menu-open');
+            var	messages = document.getElementById('messages');
+            menu.addEventListener('click', function () {
+              if (menu.checked == true) {
+                messages.style.filter = 'grayscale(80%) blur(5px)';
+              } else {
+                messages.style.filter = 'none';
+              }
+            });
+          </script>
+  			</ons-page>
+  		</template>
+  	</div>
+  </body>
+</html>

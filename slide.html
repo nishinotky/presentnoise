@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Slide Test</title>
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="./assets/css/slide.css">
+  </head>
+  <body>
+    <div class="iframe-wrap">
+		<div class="overflow">
+			<div class="effect-wrap confetti-wrap confetti"></div>
+			<div class="effect-wrap hearts-wrap hearts"></div>
+			<div class="effect-wrap stamp-wrap stamps"></div>
+			<div class="effect-wrap fire-wrap fire"></div>
+			<div class="effect-wrap comments-wrap comments"></div>
+			<div class="effect-wrap question-wrap question"></div>
+			<div class="button-wrap">
+				<div class="screenmode-change__btn" onclick="ChangeFullScreen()"><i class="fa fa-expand"></i></div>
+			</div>
+		</div>
+		<div class="slide-wrap">
+			<iframe allowfullscreen src="//www.beautiful.ai/player/-Lc-84Zdd--dNpVbBoc5/Sample-Presentation?utm_source=beautiful_player&utm_medium=embed&utm_campaign=-Lc-84Zdd--dNpVbBoc5"></iframe>
+		</div>
+	</div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    $(function () {
+      var socket = io();
+      socket.on('message', function(msg){
+        if (msg === 1) {// HEART
+  				// Generate
+  				var heart = document.querySelector('.hearts-wrap');
+  				var particle = document.createElement('span');
+  				particle.setAttribute('class', 'particle');
+  				particle.style.top = rnd(80,100) + '%';
+  				particle.style.left = rnd(0,100) + '%';
+  				particle.style.width = 15 + 'px';
+  				particle.style.height = 15 + 'px';
+  				heart.appendChild(particle);
+  				// Remove
+  				particle.addEventListener("webkitAnimationEnd", function (e) {
+  					var target = document.querySelectorAll('.particle');
+  					heart.removeChild(target[0]);
+  				});
+  			} else if (msg === 2) {// CONFETTI
+  				// Generate
+  				var confetti = document.querySelector('.confetti-wrap');
+  				var particle = document.createElement('span');
+  				particle.setAttribute('class', 'particle c' + rnd(1,2) + '');
+  				particle.style.top = rnd(0,10) + '%';
+  				particle.style.left = rnd(0,100) + '%';
+  				particle.style.width = rnd(24,32) + 'px';
+  				particle.style.height = rnd(12,16) + 'px';
+  				confetti.appendChild(particle);
+  				// Remove
+  				particle.addEventListener("webkitAnimationEnd", function (e) {
+  					var target = document.querySelectorAll('.particle');
+  					confetti.removeChild(target[0]);
+  				});
+  			} else if (msg === 3) {// STAMP
+  				// Generate
+  				var stamp = document.querySelector('.stamp-wrap');
+  				var img = document.createElement('img');
+  				img.setAttribute('src', './assets/img/stamp/' + rnd(1,41) + '.png');
+  				img.setAttribute('class', 'stamp');
+  				img.style.top = rnd(0,50) + '%';
+  				img.style.left = rnd(0,70) + '%';
+  				img.style.width = '320px';
+  				img.style.height = '320px';
+  				stamp.appendChild(img);
+  				// Remove
+  				img.addEventListener("webkitAnimationEnd", function (e) {
+  					var target = document.querySelectorAll('.stamp');
+  					stamp.removeChild(target[0]);
+  				});
+  			} else if (msg === 4) {// FIRE
+  				// Generate
+  				var fire = document.querySelector('.fire-wrap');
+  				var particle = document.createElement('span');
+  				particle.setAttribute('class', 'particle');
+  				particle.style.top = rnd(80,95) + '%';
+  				particle.style.left = rnd(-10,100) + '%';
+  				particle.style.width = '50px';
+  				particle.style.height = '50px';
+  				fire.appendChild(particle);
+  				// Remove
+  				particle.addEventListener("webkitAnimationEnd", function (e) {
+  					var target = document.querySelectorAll('.particle');
+  					fire.removeChild(target[0]);
+  				});
+  			} else if (msg === 5) {// QUESTION
+  				// Generate
+  				var question = document.querySelector('.question-wrap');
+  				var icon = document.createElement('i');
+  				icon.setAttribute('class', 'fa fa-question icon');
+  				icon.style.top = rnd(0,100) + '%';
+  				icon.style.left = rnd(0,100) + '%';
+  				icon.style.fontSize = '50px';
+  				icon.style.color = '#ff0000';
+  				question.appendChild(icon);
+  				// Remove
+  				icon.addEventListener("webkitAnimationEnd", function (e) {
+  					var target = document.querySelectorAll('.icon');
+  					question.removeChild(target[0]);
+  				});
+  			} else {// COMMENTS
+  				// Generate
+  				var comments = document.querySelector('.comments-wrap');
+  				var comment = document.createElement('span');
+  				comment.setAttribute('class', 'comment');
+  				var sum = 0;
+  				for (var i = 0; i < max; i++) {
+  					target = msg.indexOf(words[i]);
+  					if (target != -1) {
+  						if (target == 0) {
+  							sum += 1;
+  						} else {
+  							sum += target;
+  						}
+  					}
+  				}
+  				var imgUrl, con;
+  				if (gacha(6)) {
+  					imgUrl = 'sushi.png';
+  				} else {
+  					imgUrl = 'alive.png';
+  				}
+  				if (sum <= 0) {
+  					con = msg;
+  				} else {
+  					con = '<img src="./assets/img/messages/' + imgUrl + '" alt="">';
+  				}
+
+  				comment.innerHTML = con;
+  				comment.style.top = rnd(0,70) + '%';
+  				comment.style.color = '#ff0000';
+  				comment.style.whiteSpace = 'nowrap';
+  				comments.appendChild(comment);
+  				// Remove
+  				comment.addEventListener("webkitAnimationEnd", function (e) {
+  					var target = document.querySelectorAll('.comment');
+  					comments.removeChild(target[0]);
+  				});
+  			}
+      });
+    });
+
+		// random
+		function rnd(m,n) {
+			m = parseInt(m);
+			n = parseInt(n);
+			return Math.floor( Math.random() * (n - m + 1) ) + m;
+		};
+
+		// full screen function
+		function ChangeFullScreen() {
+			var el = document.body;
+			if (el.requestFullscreen) {
+				el.requestFullscreen();
+			} else if (el.webkitRequestFullscreen) {
+				el.webkitRequestFullscreen();
+			} else if (el.mozRequestFullScreen) {
+				el.mozRequestFullScreen();
+			} else if (el.msRequestFullscreen) {
+				el.msRequestFullscreen();
+			}
+		};
+		function ExitFullScreen() {
+			if (document.webkitCancelFullScreen) {
+				document.webkitCancelFullScreen();
+			} else if (document.mozCancelFullScreen) {
+				document.mozCancelFullScreen();
+			} else {
+				document.exitFullscreen();
+			}
+		};
+		document.addEventListener('fullscreenchange', function (e) {
+
+			if (document.fullscreenEnabled) {
+				// add class
+				var btn = document.querySelector('.screenmode-change__btn');
+				if (btn.classList.contains('none') === false) {
+					btn.classList.add('none');
+				} else {
+					btn.classList.remove('none');
+				}
+			}
+
+		});
+
+		// check message
+		var words = [
+			'まぐろ',
+			'マグロ',
+			'鮪',
+			'つな',
+			'ツナ',
+			'赤身',
+			'中トロ',
+			'大トロ',
+			'寿司',
+			'すし',
+			'スシ'
+		],
+		max = words.length,
+		target;
+		function gacha(rate) {
+			return rnd(1, 100) <= rate;
+		};
+	</script>
+  </body>
+</html>

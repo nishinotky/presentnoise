@@ -1,0 +1,686 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,500,700&subset=japanese');
+
+body {
+	background-color: #333333;
+}
+/* SPLASH */
+.splash-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: #ed2324;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	animation: splash 1s 7s forwards;
+	opacity: 1;
+	visibility: visible;
+}
+.splash-wrap > img {
+	animation: splash-icon 5s 1s forwards;
+	visibility: hidden;
+	pointer-events: none;
+	transform: scale(2);
+}
+.splash {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url('https://37.media.tumblr.com/tumblr_mbha9qWF401qcixnko4_500.gif') no-repeat center center fixed;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+	animation: splash 7s .5s forwards;
+	opacity: 1;
+	visibility: visible;
+}
+@keyframes splash {
+	0% {
+		opacity: 1;
+		visibility: visible;
+	}
+	100% {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+@keyframes splash-icon {
+	0% {
+		transform: scale(2);
+		opacity: 0;
+		visibility: hidden;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+#bar-top {
+	background-color: #333333;
+/*	box-shadow: 0 0 5px 1px rgba(0,0,0,0.08);*/
+}
+#bar-top .left,
+#bar-top .center,
+#bar-top .right {
+	color: #fff;
+	background-color: #333333;
+}
+#bar-top .right {
+	font-size: 10px;
+}
+#home-img {
+	width: 100%;
+}
+#bottom-tabbar .tabbar {
+	background-color: #333333;
+	background-image: none;
+}
+#top {
+	background-color: #333333 !important;
+}
+.back-button--material__label {
+	display: inline;
+	vertical-align: middle;
+}
+.page__content {
+	font-family: 'Noto Sans JP', sans-serif;
+	font-weight: 400;
+
+	background-color: #333333 !important;
+	color: #fff;
+}
+.tabbar__item {
+	background-color: #333333 !important;
+	background-image: none;
+}
+.tabbar__button {
+	color: #fff;
+}
+.tabbar__content {
+	bottom: 0;
+}
+#bottom-tabbar .tabbar {
+	height: 0;
+}
+ons-toolbar {
+	background-color: #333333 !important;
+}
+.back-button {
+	color: #fff;
+}
+.back-button__icon {
+	fill: #fff;
+}
+
+/* common */
+.flex-all {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	position: relative;
+	z-index: 1;
+}
+
+/* demo */
+#header {
+	box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
+	background: #000;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	opacity: 0;
+	visibility: hidden;
+	height: 0;
+	animation: headerOpen 1s 8.5s forwards;
+}
+@keyframes headerOpen {
+	0% {
+		opacity: 0;
+		visibility: hidden;
+		height: 0;
+	}
+	100% {
+		opacity: 1;
+		visibility: visible;
+		height: 44px;
+	}
+}
+#header .title {
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	background: #000;
+	margin: 0;
+	text-align: center;
+	height: 44px;
+	line-height: 44px;
+}
+form {
+	background: #333;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 2% 5px;
+}
+#messages {
+	list-style-type: none;
+	margin: 0;
+	padding: 5px 0;
+}
+#messages li {
+	padding: 5px 10px;
+}
+messages li:nth-child(odd) {
+	background: #eee;
+}
+/* menu */
+a {
+	color: inherit;
+}
+
+.menu-item,
+.menu-open-button {
+	background: #EEEEEE;
+	border-radius: 100%;
+	width: 80px;
+	height: 80px;
+	margin-left: -40px;
+	position: absolute;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 80px;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	-webkit-transition: -webkit-transform ease-out 200ms;
+	transition: -webkit-transform ease-out 200ms;
+	transition: transform ease-out 200ms;
+	transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+}
+
+.menu-item {
+	margin: 0;
+}
+
+.menu-open {
+	display: none;
+}
+
+.lines {
+	width: 25px;
+	height: 3px;
+	background: #596778;
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -12.5px;
+	margin-top: -1.5px;
+	-webkit-transition: -webkit-transform 200ms;
+	transition: -webkit-transform 200ms;
+	transition: transform 200ms;
+	transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.line-1 {
+	-webkit-transform: translate3d(0, -8px, 0);
+	transform: translate3d(0, -8px, 0);
+}
+
+.line-2 {
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.line-3 {
+	-webkit-transform: translate3d(0, 8px, 0);
+	transform: translate3d(0, 8px, 0);
+}
+
+.menu-open:checked + .menu-open-button .line-1 {
+	-webkit-transform: translate3d(0, 0, 0) rotate(45deg);
+	transform: translate3d(0, 0, 0) rotate(45deg);
+}
+
+.menu-open:checked + .menu-open-button .line-2 {
+	-webkit-transform: translate3d(0, 0, 0) scale(0.1, 1);
+	transform: translate3d(0, 0, 0) scale(0.1, 1);
+}
+
+.menu-open:checked + .menu-open-button .line-3 {
+	-webkit-transform: translate3d(0, 0, 0) rotate(-45deg);
+	transform: translate3d(0, 0, 0) rotate(-45deg);
+}
+
+.menu {
+	margin: auto;
+	position: fixed;
+	right: 20px;
+	bottom: 75px;
+	width: 80px;
+	height: 80px;
+	text-align: center;
+	box-sizing: border-box;
+	font-size: 26px;
+}
+
+.menu-item:nth-child(3) {
+	-webkit-transition-duration: 180ms;
+	transition-duration: 180ms;
+}
+
+.menu-item:nth-child(4) {
+	-webkit-transition-duration: 180ms;
+	transition-duration: 180ms;
+}
+
+.menu-item:nth-child(5) {
+	-webkit-transition-duration: 180ms;
+	transition-duration: 180ms;
+}
+
+.menu-item:nth-child(6) {
+	-webkit-transition-duration: 180ms;
+	transition-duration: 180ms;
+}
+
+.menu-item:nth-child(7) {
+	-webkit-transition-duration: 180ms;
+	transition-duration: 180ms;
+}
+
+.menu-item:nth-child(8) {
+	-webkit-transition-duration: 180ms;
+	transition-duration: 180ms;
+}
+
+.menu-item:nth-child(9) {
+	-webkit-transition-duration: 180ms;
+	transition-duration: 180ms;
+}
+
+.menu-open-button {
+	z-index: 2;
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	-webkit-transition-duration: 400ms;
+	transition-duration: 400ms;
+	-webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+	transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+	cursor: pointer;
+	box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+}
+
+.menu-open-button:hover {
+	-webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+	transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+}
+
+.menu-open:checked + .menu-open-button {
+	-webkit-transition-timing-function: linear;
+	transition-timing-function: linear;
+	-webkit-transition-duration: 200ms;
+	transition-duration: 200ms;
+	-webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+	transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+}
+
+.menu-open:checked ~ .menu-item {
+	-webkit-transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+	transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(3) {
+	transition-duration: 180ms;
+	-webkit-transition-duration: 180ms;
+	transform: translate3d(-200px, 0, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(4) {
+	transition-duration: 380ms;
+	-webkit-transition-duration: 380ms;
+	transform: translate3d(0, -200px, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(5) {
+	transition-duration: 480ms;
+	-webkit-transition-duration: 480ms;
+	transform: translate3d(-100px, 0, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(6) {
+	transition-duration: 580ms;
+	-webkit-transition-duration: 580ms;
+	transform: translate3d(-100px, -100px, 0);
+}
+
+.menu-open:checked ~ .menu-item:nth-child(7) {
+	transition-duration: 680ms;
+	-webkit-transition-duration: 680ms;
+	transform: translate3d(0, -100px, 0);
+}
+
+.blue {
+	background-color: #669AE1;
+	box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.green {
+	background-color: #70CC72;
+	box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.red {
+	background-color: #FE4365;
+	box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.purple {
+	background-color: #C49CDE;
+	box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.orange {
+	background-color: #FC913A;
+	box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.lightblue {
+	background-color: #62C2E4;
+	box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.credit {
+	margin: 24px 20px 120px 0;
+	text-align: right;
+	color: #EEEEEE;
+}
+
+.credit a {
+	padding: 8px 0;
+	color: #C49CDE;
+	text-decoration: none;
+	transition: all 0.3s ease 0s;
+}
+
+.credit a:hover {
+	text-decoration: underline;
+}
+
+#slide .page__content {
+	/*top: 44px;*/
+	/*bottom: 55px;*/
+
+	top: 0;
+	bottom: 0;
+	animation: slideShrink 1s 8.5s forwards;
+}
+@keyframes slideShrink {
+	0% {
+		top: 0;
+		bottom: 0;
+	}
+	100% {
+		top: 44px;
+		bottom: 55px;
+	}
+}
+
+/* タイトル部分 */
+.line__title {
+	background: #273246;
+	padding: 10px;
+	text-align: center;
+	font-size: 150%;
+	color: #ffffff;
+}
+
+/* 会話部分 */
+.line__contents {
+	padding: 10px;
+	overflow: hidden;
+	line-height: 135%;
+}
+
+/* スタンプ画像最大幅 */
+.stamp img {
+	max-width:150px;
+}
+
+/* 相手の会話 */
+.line__left {
+	width: 100%;
+	position: relative;
+	display: block;
+	margin-bottom: 5px;
+	max-width: 80%;
+	clear: both;
+}
+
+/* アイコン画像 */
+.line__left figure {
+	width: 50px;
+	position: absolute;
+	top: 15px;
+	left: 0;
+	padding: 0;
+	margin: 0;
+}
+
+/* 正方形を用意 */
+.line__left figure img{
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+}
+
+.line__left .line__left-text {
+	margin-left: 70px;
+}
+
+.line__left .line__left-text .name {
+	font-size: 80%;
+	color: #ffffff;
+}
+
+/* コメントエリア */
+.line__left .text {
+	margin: 0;
+	position: relative;
+	padding: 10px;
+	border-radius: 20px;
+	background-color: #ffffff;
+	color: #000;
+	word-break: break-word;
+}
+
+/* 吹き出し */
+.line__left .text::after {
+	content: '';
+	position: absolute;
+	display: block;
+	width: 0;
+	height: 0;
+	left: -10px;
+	top: 10px;
+	border-right: 20px solid #ffffff;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+}
+
+/* 自分の会話 */
+.line__right {
+	position: relative;
+	display: block;
+	margin: 5px 0;
+	max-width: 75%;
+	float: right;
+	margin-right: 15px;
+	clear: both;
+}
+
+/* コメントエリア */
+.line__right .text {
+	padding: 10px;
+	border-radius: 20px;
+	background-color: #8de055;
+	margin: 0;
+	margin-left: 80px;
+}
+
+/* 吹き出し */
+.line__right .text::after {
+	content: '';
+	position: absolute;
+	display: block;
+	width: 0;
+	height: 0;
+	right: -10px;
+	top: 10px;
+	border-left: 20px solid #8de055;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+}
+
+/*  */
+.btn-icon {
+	position: relative;
+	cursor: pointer;
+}
+.btn-icon svg {
+	stroke: #FFF;
+	fill: #FFF;
+	width: 50%;
+	height: auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+}
+.chat__conversation-panel {
+	background: #131719;
+	border-radius: 12px;
+	padding: 0 1em;
+	height: 50px;
+	margin: 0;
+}
+.chat__conversation-panel__container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 100%;
+}
+.chat__conversation-panel__container .panel-item:not(:last-child) {
+	margin: 0 1em 0 0;
+}
+.chat__conversation-panel__button {
+	background: grey;
+	height: 20px;
+	width: 30px;
+	border: 0;
+	padding: 0;
+	outline: none;
+	cursor: pointer;
+}
+.chat__conversation-panel .add-file-button {
+	height: 23px;
+	min-width: 23px;
+	width: 23px;
+	background: #212324;
+	border-radius: 50%;
+}
+.chat__conversation-panel .add-file-button svg {
+	width: 70%;
+	stroke: #54575c;
+}
+.chat__conversation-panel .emoji-button {
+	min-width: 23px;
+	width: 23px;
+	height: 23px;
+	background: transparent;
+	border-radius: 50%;
+}
+.chat__conversation-panel .emoji-button svg {
+	width: 100%;
+	fill: transparent;
+	stroke: #54575c;
+}
+.chat__conversation-panel .send-message-button {
+	background: #8147fc;
+	height: 30px;
+	min-width: 30px;
+	border-radius: 50%;
+	transition: 0.3s ease;
+}
+.chat__conversation-panel .send-message-button:active {
+	-webkit-transform: scale(0.97);
+			transform: scale(0.97);
+}
+.chat__conversation-panel .send-message-button svg {
+	margin: 1px -1px;
+}
+.chat__conversation-panel__input {
+	width: 100%;
+	height: 100%;
+	outline: none;
+	position: relative;
+	color: #a3a3a3;
+	font-size: 16px;
+	background: transparent;
+	border: 0;
+	font-family: "Lato", sans-serif;
+	resize: none;
+}
+
+/* 最終調整 */
+#bottom-bar {
+	overflow: visible;
+	background: #000;
+
+	visibility: hidden;
+	height: 0;
+	animation: bottomOpen 1s 8.5s forwards;
+}
+@keyframes bottomOpen {
+	0% {
+		visibility: hidden;
+		height: 0;
+	}
+	100% {
+		visibility: visible;
+		height: 55px;
+	}
+}
+#bottom-bar .menu,
+#memo {
+	animation: fade 1s 8.5s forwards;
+}
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
