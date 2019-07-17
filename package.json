@@ -1,5 +1,7 @@
 {
   "name": "presentnoise",
+  "repository": "presentnoise",
+  "license": "MIT",
   "version": "0.0.1",
   "description": "my first socket.io app",
   "dependencies": {
